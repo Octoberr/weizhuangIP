@@ -1,2 +1,3 @@
-from feichangzun import allflight
-from feichangzun import config
+import config
+import getflight
+import getflightdata

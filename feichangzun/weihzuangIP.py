@@ -50,20 +50,26 @@ class FCZPAC:
         eagleyedates.insert(flightdata)
         print(datetime.datetime.now(), 'insert mongodb success')
 
-    @retry
+    @retry(stop_max_attempt_number=5)
     def getchuanghanglist(self):
-        startHtml = requests.get(allUrl, headers=self.get_headers())
-        Soup = BeautifulSoup(startHtml.text, 'lxml')
-        allA = Soup.find('div', class_='f_content').find_all('a')
-        flight = []
-        flightlink = []
-        for i in range(1, len(allA)):
-            if '3U' in allA[i].get_text():
-                flight.append(allA[i].get_text())
-                flightlink.append(allA[i].get('href'))
-        return HANDL(flight, flightlink)
+        print('getchuanghanglist')
+        try:
+            startHtml = requests.get(allUrl, headers=self.get_headers())
+            Soup = BeautifulSoup(startHtml.text, 'lxml')
+            allA = Soup.find('div', class_='f_content').find_all('a')
+            flight = []
+            flightlink = []
+            for i in range(1, len(allA)):
+                if '3U' in allA[i].get_text():
+                    flight.append(allA[i].get_text())
+                    flightlink.append(allA[i].get('href'))
+
+            return HANDL(flight, flightlink)
+        except Exception as e:
+            print(e)
 
     def getListData(self, flightlink, flightstr):
+        print('getListData')
         today = datetime.datetime.now().date()
         allflightLink = []
         for i in range(len(flightlink)):
@@ -109,7 +115,7 @@ class FCZPAC:
                         break
         return allflightLink                  # [[一个航班],[]]
 
-    @retry
+    @retry(stop_max_attempt_number=5)
     def getaflightinfo(self, aflight):     # 传进来一个航班的[link],获取到这个航班的信息
         flightinfolist = []
         for el in aflight:
@@ -174,6 +180,7 @@ class FCZPAC:
         return flightinfolist
 
     def start(self):
+        print('start')
         flightdata = self.getchuanghanglist()
         flightlink = flightdata.flightlink
         flightstr = flightdata.flight

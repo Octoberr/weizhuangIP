@@ -135,6 +135,7 @@ class GETFLIGHTDATA:
             info = {}
             flightinfo = self.getaflightinfo(flight['Link'])
             if len(flightinfo) == 0:
+                self.updatestatus(flight['_id'])
                 continue
             if len(flightinfo) == 1:
                 init = 0

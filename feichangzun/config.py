@@ -2,7 +2,7 @@
 import os
 
 mongo_config = {}
-mongo_config['host'] = "192.168.0.131"
+mongo_config['host'] = "192.168.0.94"
 mongo_config['port'] = 27017
 mongo_config['user'] = 'admin'
 mongo_config["pwd"] = 'admin'

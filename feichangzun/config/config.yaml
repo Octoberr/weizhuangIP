@@ -1,0 +1,5 @@
+es:
+  enabled: False
+  host: 'redisserver'
+  port: 9200
+  index: log-flightCollect

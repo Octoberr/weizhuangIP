@@ -151,7 +151,7 @@ class GETFLIGHTDATA:
                 info['to_code'] = flightinfo[init]['dd_citycode']
                 info['fno'] = flightinfo[init]['fno']
                 info['Company'] = '3U'
-                info['Date'] = flightinfo[init]['date']+"T00:00:00"
+                info['Date'] = flightinfo[init]['date']
                 info['zql'] = ""
             else:
                 init = 1
@@ -167,7 +167,7 @@ class GETFLIGHTDATA:
                 info['to_code'] = flightinfo[init]['dd_citycode']
                 info['fno'] = flightinfo[init]['fno']
                 info['Company'] = '3U'
-                info['Date'] = flightinfo[init]['date']+"T00:00:00"
+                info['Date'] = flightinfo[init]['date']
                 info['zql'] = ""
             flightdic['Info'] = info
             flightdic['List'] = flightinfo

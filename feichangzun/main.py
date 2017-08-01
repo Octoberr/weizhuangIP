@@ -16,7 +16,7 @@ def main():
 
 if __name__ == '__main__':
     print(datetime.datetime.now(), "The program has started")
-    scheduler = BlockingScheduler(timezone='Asia/Shanghai')
+    scheduler = BlockingScheduler()
     main()
     scheduler.add_job(main, 'interval', hours=12)
     scheduler.start()

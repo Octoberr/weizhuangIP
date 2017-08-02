@@ -12,7 +12,12 @@ app = Flask(__name__)
 @app.route('/flight/<fno>/<date>')
 def get_flight(fno, date):
     data = getDirectFlight(fno, date)
-    return Response(data, content_type='application/json')
+    result = {"resultcode": 200, "reason": "success",
+              "error_code": 0, "result": data}
+    if data is None:
+        result['reason'] = "查询失败"
+        result['error_code'] = 1
+    return jsonify(result)
 
 
 def run():

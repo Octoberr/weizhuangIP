@@ -55,14 +55,14 @@ def getDirectFlight(flight, flightdate):
                 flightlist.append(link.get('href'))
     flightdictlist = gt.getaflightinfo(flightlist)
     if len(flightdictlist) == 0:
-        return []
+        return None
     flightdict = getFlightJsonData(flightdictlist)
     querdata = getqueryflight(flight, flightdate)
     if len(querdata) == 0:
         gt.insertintomongo(flightdict)
         del(flightdict['_id'])
-    flightdictr = json.dumps(flightdict)
-    return flightdictr
+    # flightdictr = json.dumps(flightdict)
+    return flightdict
 
 
 def getFlightJsonData(flightinfo):

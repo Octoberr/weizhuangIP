@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Response
 import gevent.monkey
 from Utils.config import config
 from directGetFlightData import getDirectFlight
@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/flight/<fno>/<date>')
 def get_flight(fno, date):
     data = getDirectFlight(fno, date)
-    return jsonify(data)
+    return Response(data, content_type='application/json')
 
 
 def run():

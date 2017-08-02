@@ -38,7 +38,7 @@ class FCZPAC:
         feichangzhundata = db.feichangzun
         cursor = feichangzhundata.find({"Info.fno": aircarfNo}, {"Info.Date": 1}).sort("Info.Date", -1).limit(1)
         for el in cursor:
-            havedate = datetime.datetime.strptime(el["Info"]['Date'], "%Y-%m-%dT%H:%M:%S").date()
+            havedate = datetime.datetime.strptime(el["Info"]['Date'], "%Y-%m-%d").date()
             return havedate
 
     def insertFlight(self, flight):

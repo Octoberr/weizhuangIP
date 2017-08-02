@@ -34,7 +34,7 @@ class GETFLIGHTDATA:
             f = open(logfile, 'a+')
         else:
             f = open(logfile, 'w')
-        f.write("Cant connect error:{}".format(url))
+        f.write("Cant connect error:{}/n".format(url))
         f.close()
 
     @retry(stop_max_attempt_number=5)
@@ -126,7 +126,7 @@ class GETFLIGHTDATA:
         db = client.swmdb
         feichangzhundata = db.flightlink
         feichangzhundata.update({'_id': flightid}, {"$set": {"pacstatu": 1}})
-        print(datetime.datetime.now(), "pacstatu has uodate")
+        print(datetime.datetime.now(), "pacstatu has update")
 
     def getFlightData(self):
         allLinks = self.getflightlink()

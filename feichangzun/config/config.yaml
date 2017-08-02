@@ -3,3 +3,11 @@ es:
   host: 'redisserver'
   port: 9200
   index: log-flightCollect
+
+http:
+  host: '0.0.0.0'
+  port: 8021
+
+mongo:
+  host: 'mongo'
+  port: 27017

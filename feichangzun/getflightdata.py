@@ -8,8 +8,10 @@ import pymongo
 import datetime
 import random
 import os
+from Utils.config import config
 
-import config
+# import config
+mongoConf = config['mongo']
 
 feichangzun = 'http://www.variflight.com'
 
@@ -103,7 +105,7 @@ class GETFLIGHTDATA:
         return flightinfolist
 
     def insertintomongo(self, flightdata):
-        client = pymongo.MongoClient(host=config.mongo_config['host'], port=config.mongo_config['port'])
+        client = pymongo.MongoClient(host=mongoConf['host'], port=mongoConf['port'])
         db = client.swmdb
         feichangzhundata = db.feichangzun
         feichangzhundata.insert(flightdata)
@@ -111,7 +113,7 @@ class GETFLIGHTDATA:
 
     def getflightlink(self):
         allflightlinks = []
-        client = pymongo.MongoClient(host=config.mongo_config['host'], port=config.mongo_config['port'])
+        client = pymongo.MongoClient(host=mongoConf['host'], port=mongoConf['port'])
         db = client.swmdb
         feichangzhundata = db.flightlink
         cursor = feichangzhundata.find({"pacstatu": 0}, {"Link": 1})
@@ -120,7 +122,7 @@ class GETFLIGHTDATA:
         return allflightlinks
 
     def updatestatus(self, flightid):
-        client = pymongo.MongoClient(host=config.mongo_config['host'], port=config.mongo_config['port'])
+        client = pymongo.MongoClient(host=mongoConf['host'], port=mongoConf['port'])
         db = client.swmdb
         feichangzhundata = db.flightlink
         feichangzhundata.update({'_id': flightid}, {"$set": {"pacstatu": 1}})

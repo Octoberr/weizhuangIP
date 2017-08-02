@@ -4,9 +4,10 @@ from retrying import retry
 import pymongo
 import datetime
 import random
+from Utils.config import config
 
-
-import config
+# import config
+mongoConf = config['mongo']
 
 feichangzun = 'http://www.variflight.com'
 allUrl = "http://www.variflight.com/sitemap.html?AE71649A58c77="
@@ -32,7 +33,7 @@ class FCZPAC:
         return headers
 
     def getquerydate(self, aircarfNo):
-        client = pymongo.MongoClient(host=config.mongo_config['host'], port=config.mongo_config['port'])
+        client = pymongo.MongoClient(host=mongoConf['host'], port=mongoConf['port'])
         db = client.swmdb
         feichangzhundata = db.feichangzun
         cursor = feichangzhundata.find({"Info.fno": aircarfNo}, {"Info.Date": 1}).sort("Info.Date", -1).limit(1)
@@ -41,7 +42,7 @@ class FCZPAC:
             return havedate
 
     def insertFlight(self, flight):
-        client = pymongo.MongoClient(host=config.mongo_config['host'], port=config.mongo_config['port'])
+        client = pymongo.MongoClient(host=mongoConf['host'], port=mongoConf['port'])
         db = client.swmdb
         feichangzhundata = db.flightlink
         feichangzhundata.insert(flight)

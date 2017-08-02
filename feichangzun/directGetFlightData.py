@@ -4,10 +4,17 @@ from bs4 import BeautifulSoup
 import random
 import json
 import pymongo
-import config
 import datetime
+from Utils.config import config
+
+# import config
+mongoConf = config['mongo']
+
+
 feichangzun = 'http://www.variflight.com/flight/fnum/'
 feichangzunhouzui = '.html?AE71649A58c77&fdate='
+
+
 
 
 def get_headers():
@@ -24,7 +31,7 @@ def get_headers():
 
 def getqueryflight(flight, flightdate):
     allflightlinks = []
-    client = pymongo.MongoClient(host=config.mongo_config['host'], port=config.mongo_config['port'])
+    client = pymongo.MongoClient(host=mongoConf['host'], port=mongoConf['port'])
     db = client.swmdb
     feichangzhundata = db.feichangzun
     cursor = feichangzhundata.find({"Info.fno": flight, "Info.Date": flightdate})

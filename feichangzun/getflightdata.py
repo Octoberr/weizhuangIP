@@ -54,13 +54,21 @@ class GETFLIGHTDATA:
                 ddcitycode = code[1]
                 fno = code[2].split('.')[0]
                 city = listSoup.find_all('div', class_='fly_mian')
-                qfsimple = city[0].find('h2').get('title').split(qfcity)[1]
+                tmpqfsimple = city[0].find('h2').get('title').split(qfcity)
+                if len(tmpqfsimple) is not 1:
+                    qfsimple = tmpqfsimple[1]
+                else:
+                    qfsimple = city[0].find('h2').get('title')
                 if 'T' in qfsimple:
                     qfTerminal = 'T' + qfsimple.split('T')[1]
                 else:
                     qfTerminal = ""
                 qf = qfcity + " " + qfsimple
-                ddsimple = city[len(city)-1].find('h2').get('title').split(ddcity)[1]
+                tmpddsimple = city[len(city)-1].find('h2').get('title').split(ddcity)
+                if len(tmpddsimple) is not 1:
+                    ddsimple = tmpddsimple[1]
+                else:
+                    ddsimple = city[len(city) - 1].find('h2').get('title')
                 if 'T' in ddsimple:
                     ddTerminal = 'T' + ddsimple.split('T')[1]
                 else:
